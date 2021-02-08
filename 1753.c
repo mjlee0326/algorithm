@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <limits.h>
 
 int main(){
 	int numE; //edge 총 개수
@@ -20,7 +21,7 @@ int main(){
 	//initial weight array
 	for(int i=1; i<=numV; i++){
 		for(int j=1; j<=numV; j++){
-			weight[i][j]=99;
+			weight[i][j]=INT_MAX;
 			if(i==j){
 				weight[i][j]=0;
 			}
@@ -43,7 +44,7 @@ int main(){
 	
 
 	for(int k=1; k<=numV; k++){
-		min=99; //given weight max=10;
+		min=INT_MAX;
 		vnear=-1;
 
 		for(int i=1; i<=numV; i++){
@@ -58,7 +59,7 @@ int main(){
 		}
 		else{
 			printf("INF\n");
-			return 0;
+			break;
 		}
 
 		//length 재설정
@@ -67,6 +68,7 @@ int main(){
 				length[i]=length[vnear]+weight[vnear][i];
 			}
 		}
-		length[vnear]=-1;
+		length[vnear]=INT_MAX;
 	}
+	return 0;
 }

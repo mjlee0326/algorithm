@@ -1,58 +1,86 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#define MAX_VAL 1000
-#define MAX_DIGIT 5
+#include <algorithm>
+#define MAX_DIGIT 4
 
 using namespace std;
 
 
 string solution(vector<int> numbers) {
     string answer = "";
+		vector<string> strVec;
+		vector<int> copy(numbers);
 		int large, index, num;
-		int size=numbers.size();
-		string temp1, temp2;
-		
+		int size;
 		string str1, str2;
-		for(int i=0; i<size; i++){
-			str1=to_string(numbers[0]);
-			index=0;
-			for(int j=1; j<numbers.size(); j++){
-				str2=to_string(numbers[j]);
-				if(str1[0]==str2[0]){
-					for(int k=1; k<MAX_DIGIT; k++){
-						if(str1[k]=='\0' && str2[k]<str1[0]){
-							break;
-						}
+		string str;
 
-						else if(str2[k]=='\0' && str1[k]<str1[0]){
-							str1=str2;
-							index=j;
-							break;
-						}
-						//null이 ascii 가장 작은 값
-						else if(str1[k]<str2[k] && str2[k]!='0'){  //eg 3 30
-							str1=str2;
-							index=j;
-							break;
-						}
-						else if(str1[k]=='0' && str2[k]!='0'){
-							str1=str2;
-							index=j;
-							break;
-						}
-					}
-				}
-				else if(str1<str2){
-					str1=str2;
-					index=j;
-				}
-			}
-			answer+=str1;
-			if(str1[0]=='0' && answer=="0"){ //all zero
+
+		for(int i=0; i<copy.size(); i++){
+			strVec.push_back(to_string(copy[i]));
+		}
+
+		sort(strVec.begin(), strVec.end(), greater<>());
+		
+		for(int i=0; i<strVec.size(); i++){
+			cout<<strVec[i]<<"  ";
+		}
+
+		cout<<endl;
+
+		if(strVec[0]=="0"){ //all zero
+			answer+=strVec[0];
+			return answer;
+		}
+
+		while(strVec.size()!=0){
+			if(strVec.size()==1){
+				answer+=strVec[0];
 				break;
 			}
-			numbers.erase(numbers.begin()+index);
+			while(strVec.size()>1 && strVec[0][0]>strVec[1][0]){ //앞자리가 크다면 계속 추가
+				answer+=strVec[0];
+				strVec.erase(strVec.begin());
+			}
+			while(strVec.size()>1 && strVec[0]==strVec[1]){ //같은 수 계속 추가
+				answer+=strVec[0];
+				answer+=strVec[1];
+				strVec.erase(strVec.begin(), strVec.begin()+2);
+			}
+			if(strVec.size()>1 && strVec[0][0]==strVec[1][0]){ //앞자리가 같음
+				index=-1;
+				for(int i=1; i<MAX_DIGIT; i++){
+					if(strVec[0][i]=='\0' && strVec[1][i]=='\0'){
+						index=0;
+						break;
+					}
+					if(strVec[0][i]<strVec[1][i]){ //strVec[0][i]가 null일 가능성 
+						if(strVec[0][i]=='\0'){
+							if(strVec[0][0]>strVec[1][i]){
+								index=0;
+								break;
+							}
+						} 
+						index=1;
+						break;
+					}
+					else if(strVec[0][i]>strVec[1][i]){ //strVec[1][i]가 null일 가능성
+						if(strVec[1][i]=='\0'){
+							if(strVec[1][0]>strVec[0][i]){
+								index=1;
+								break;
+							}
+						}
+						index=0;
+						break;
+					}
+				}
+				if(index!=-1){
+					answer+=strVec[index];
+					strVec.erase(strVec.begin()+index);
+				}
+			}
 		}
 
     return answer;
@@ -64,11 +92,12 @@ int main(){
 	vector<int> numbers3={0, 0, 0, 0, 0};
 	vector<int> numbers4={0, 5, 10, 15, 20};
 	vector<int> numbers5={1000, 0, 5, 99, 100};
-	vector<int> numbers6={40, 403};
+	vector<int> numbers6={403, 40};
 	vector<int> numbers7={21, 212};
 	vector<int> numbers8={10, 101};
 	vector<int> numbers9={1, 11, 111, 1111};
 	vector<int> numbers10={0, 5, 10, 15, 20};
+	vector<int> numbers11={33, 33};
 	string answer;
 
 	answer=solution(numbers);
@@ -90,6 +119,8 @@ int main(){
 	answer=solution(numbers9);
 	cout<<answer<<endl;
 	answer=solution(numbers10);
+	cout<<answer<<endl;
+	answer=solution(numbers11);
 	cout<<answer<<endl;
 
 	return 0;

@@ -57,14 +57,20 @@ bool checkNesting(string str){
 
 }
 
+bool isSameInt(int a, int b){
+	if(a ^ b){
+		return false;
+	}
+	return true;
+}
+
 int main(int argc, char* argv[]){
 
-	if(argc!=2){
-		cout<<"check input"<<endl;
-		return -1;
-	}
-
 	cout<<boolalpha;
-	cout<<checkNesting(argv[1])<<endl;
-	return 0;
+	cout<<isSameInt(3, 3)<<endl;
+
+
+	//cout<<boolalpha;
+	//cout<<checkNesting(argv[1])<<endl;
+	exit(0);
 }

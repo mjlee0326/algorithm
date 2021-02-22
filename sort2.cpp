@@ -46,58 +46,41 @@ string solution(vector<int> numbers) {
 				answer+=strVec[0];
 				strVec.erase(strVec.begin());
 			}
-			while(strVec.size()>1 && strVec[0]==strVec[1]){ //같은 수 계속 추가
-				answer+=strVec[0];
-				answer+=strVec[1];
-				strVec.erase(strVec.begin(), strVec.begin()+2);
-			}
 			if(strVec.size()>1 && strVec[0][0]==strVec[1][0]){ //앞자리가 같음
-				index=-1;
-				for(int i=1; ; i++){
-					/*
-					if(strVec[0][i]=='\0' && strVec[1][i]=='\0'){
-						index=0;
-						break;
+				//싹 다 지워버림 ^^
+				int i=0;
+				char num=strVec[0][0];
+				while(strVec.size()>i && strVec[i][0]==num){ //앞자리 같은 수 index 찾기 (i-1)까지
+					i++;
+				}
+				for(int k=0; k<i-1; k++){ //앞자리가 같은 수 사이에서
+					j=0;
+					while(strVec[k][j]==strVec[k+1][j]){ //자릿수 값이 다를 때까지 121 12   12/121
+						j++;
 					}
-					*/
-					if(strVec[0][i]<strVec[1][i]){ //strVec[0][i]가 null일 가능성 
-						if(strVec[0][i]=='\0'){
-							while(strVec[1][i+1]!='\0'){ //strVec[1]의 끝자리
-								i++;
-							}
-							j=0;
-							while(strVec[0][j]==strVec[1][i]){
-								j++;
-							}
-							if(strVec[0][j]>strVec[1][i]){
-								index=0;
-								break;
-							}
-						} 
-						index=1;
-						break;
+					if(strVec[k+1][j]=='\0'){
 					}
-					else if(strVec[0][i]>strVec[1][i]){ //strVec[1][i]가 null일 가능성
-						if(strVec[1][i]=='\0'){
-							while(strVec[0][i+1]!='\0'){ //strVec[0]의 끝자리
-								i++;
-							}
-							j=0;
-							while(strVec[1][j]==strVec[0][i]){
-								j++;
-							}
-							if(strVec[1][j]>strVec[0][i]){
-								index=1;
-								break;
-							}
-						}
-						index=0;
-						break;
+					if(strVec[k][j]>num){ //뒷자리가 앞자리보다 더 큰 경우
+						answer+=strVec[k];
+						strVec.erase(strVec.begin()+k);
+						i--;
 					}
 				}
-				if(index!=-1){
-					answer+=strVec[index];
-					strVec.erase(strVec.begin()+index);
+				for(int k=0; k<i; k++){//앞자리가 같은 수 사이에서
+					j=0;
+					while(strVec[k][j]==num){ //33(j 1) 999(j 7)
+						j++;
+					}
+					if(strVec[k][j]=='\0'){ //3333 9999 다 같은 수
+						answer+=strVec[k];
+						strVec.erase(strVec.begin()+k);
+						i--;
+					}
+				}
+				for(int k=0; k<i; k++){
+						answer+=strVec[k];
+						strVec.erase(strVec.begin()+k);
+						i--;
 				}
 			}
 		}

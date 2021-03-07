@@ -17,4 +17,17 @@ int main(){
 
 	advance(it, -3);
 	cout<<"그 후 3년 전 우승자: "<<*it<<endl;
+
+	forward_list<string> fwd(vec.begin(), vec.end());
+
+	auto it1 = fwd.begin();
+	
+	cout<<"최근 우승자: "<<*it1<<endl;
+
+	//it1+=8; //error
+	advance(it1, 5);
+	cout<<"5년 전 우승자: "<<*it1<<endl;
+
+	//std::forward_list는 순방향만 지원하므로 advance(it1, -3)도 error
+
 }

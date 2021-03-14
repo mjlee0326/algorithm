@@ -1,6 +1,8 @@
 #include <iostream>
 #include <algorithm>
 
+using namespace std;
+
 struct singly_ll_node{
 	int data;
 	singly_ll_node* next;
@@ -33,7 +35,7 @@ class singly_ll{
 		}
 	struct singly_ll_iterator{
 		private:
-			nodd_ptr ptr;
+			node_ptr ptr;
 
 		public:
 			singly_ll_iterator(node_ptr p) : ptr(p){}
@@ -105,12 +107,47 @@ class singly_ll{
 		}
 	}
 
-
+	singly_ll(const initializer_list<int>& ilist) : head(NULL){
+		for(auto it = rbegin(ilist); it!=rend(ilist); it++){
+			push_front(*it);
+		}
+	}
 
 	private:
 		node_ptr head;	
 };
 
 int main(){
+
+	singly_ll sll = {1, 2, 3};
+	sll.push_front(0);
+
+	cout<<"첫 번째 리스트: ";
+
+	for(auto i: sll){
+		cout<<i<<" "; //output :0 1 2 3
+	}
+
+	cout<<endl;
+
+	auto sll2=sll;
+
+	sll2.push_front(-1);
+	cout<<"첫 번째 리스트를 복사한 후, 맨 앞에 -1을 추가: ";
+
+	for(auto i: sll2){
+		cout<<i<<" "; //출력 -1 0 1 2 3
+	}
+
+	cout<<endl;
+
+
+	cout<<"깊은 복사 후 첫 번째 리스트: ";
+
+	for(auto i : sll){
+		cout<<i<<" "; //출력 0 1 2 3
+	}
+
+	cout<<endl;
 	return 0;
 }

@@ -52,13 +52,11 @@ class singly_ll{
 			}
 
 			//후행증가
-			//음
 			singly_ll_iterator operator++(int){
 				singly_ll_iterator result = *this;
 				++(*this);
 				return result;
 			}
-			//음
 
 			friend bool operator==(const singly_ll_iterator& left, const singly_ll_iterator& right){
 				return left.ptr == right.ptr;
@@ -108,6 +106,7 @@ class singly_ll{
 		}
 	}
 
+	//initialize list 를 사용하는 생성자 추가
 	singly_ll(const initializer_list<int>& ilist) : head(NULL){
 		for(auto it = rbegin(ilist); it!=rend(ilist); it++){
 			push_front(*it);

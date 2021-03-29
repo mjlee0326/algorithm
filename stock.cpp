@@ -6,14 +6,22 @@ using namespace std;
 
 vector<int> solution(vector<int> prices) {
 	int cnt;
-	int i=0;
 
 	vector<int> answer;
-	vector<int> copy = prices;
 
-  for(int i = 0; i < prices.size(); i++){
-    auto it_prices = prices.begin() + i;
-    auto it_compare = it_prices + 1;
+	while(!prices.empty()){
+		auto it_prices = prices.begin();
+		auto it_compare = prices.begin()+1;
+		cnt=0;
+		while(it_compare!=prices.end()){
+			cvector<int> solution(vector<int> prices) {
+  int cnt;
+
+  vector<int> answer;
+
+  while(!prices.empty()){
+    auto it_prices = prices.begin();
+    auto it_compare = prices.begin()+1;
     cnt=0;
     while(it_compare!=prices.end()){
       cnt++;
@@ -22,8 +30,18 @@ vector<int> solution(vector<int> prices) {
       }   
       it_compare+=1;
     }   
-
     answer.insert(answer.end(), cnt);
+    prices.erase(prices.begin());
+  }
+  return answer;
+nt++;
+			if(*it_prices > *it_compare){ //하락 시점
+				break;
+			}
+			it_compare+=1;
+		}
+		answer.insert(answer.end(), cnt);
+		prices.erase(prices.begin());
 	}
 	return answer;
 }
@@ -33,7 +51,7 @@ int main(){
 	answer = solution({1, 2, 3, 2, 3});
 
 	for(int i = 0; i < answer.size(); i++){
-		cout<<answer[i]<<" ";
+		cout<<answer[i];
 	}
 	cout<<endl;
 	return 0;

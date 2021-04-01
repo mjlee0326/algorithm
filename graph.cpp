@@ -87,7 +87,6 @@ int main(){
 	g.addEdge(city::SEATTLE, city::SYDNEY, 12000);
 	g.addEdge(city::DUBAI, city::SYDNEY, 1200);
 
-
 	g.addEdge(city::SEATTLE, city::LONDON, 8000);
 	g.removeEdge(city::SEATTLE, city::LONDON);
 

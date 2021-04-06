@@ -70,8 +70,8 @@ public:
 			else{
 				int old = data1[hash];
 				data1[hash] = key;
-				insert_impl(old, ++cnt, 2); //기존 key table2로 이동
 				cout<<"insert "<<key<<" Table 1 ---- move existing value "<<old<<endl;
+				insert_impl(old, ++cnt, 2); //기존 key table2로 이동
 			}
 		}
 
@@ -84,8 +84,8 @@ public:
 			else{
 				int old = data2[hash];
 				data2[hash] = key;
-				insert_impl(key, ++cnt, 1);
 				cout<<"insert "<<key<<" Table 2 ---- move existing value "<<old<<endl;
+				insert_impl(key, ++cnt, 1);
 			}
 		}
 	}

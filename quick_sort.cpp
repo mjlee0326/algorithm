@@ -76,5 +76,6 @@ void run_quick_sort_test(){
 
 int main(){
 	run_quick_sort_test();
+
 	return 0;
 }
